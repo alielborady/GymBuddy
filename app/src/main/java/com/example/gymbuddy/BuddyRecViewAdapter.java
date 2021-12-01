@@ -1,5 +1,7 @@
 package com.example.gymbuddy;
 
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -108,6 +110,8 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
 
         public String gymNameText, strDate;
 
+        private Context context;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -115,7 +119,14 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
             gymName = itemView.findViewById(R.id.gymName);
             workoutTime = itemView.findViewById(R.id.workoutTime);
 
-//            buddyCard = (Button) itemView.findViewById(R.id.buddyCard);
+            context = itemView.getContext();
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // go to chat view/class
+                    context.startActivity(new Intent(context, HomeActivity.class));
+                }
+            });
 
         }
     }
