@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">GymBuddy</string>
+
+    <string-array name="challenges">
+        <item>Squats</item>
+        <item>Push Ups</item>
+        <item>Pull Ups</item>
+    </string-array>
+
+    <string-array name="levels">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
 </resources>

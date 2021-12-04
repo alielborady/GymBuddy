@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageButton findABuddy;
+    private ImageButton joinChallenge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         findABuddy = (ImageButton) findViewById(R.id.findBuddy);
         findABuddy.setOnClickListener(this);
 
+        joinChallenge = (ImageButton) findViewById(R.id.joinChallenge);
+        joinChallenge.setOnClickListener(this);
+
     }
 
     @Override
@@ -26,6 +30,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.findBuddy:
                 startActivity(new Intent(HomeActivity.this, AllBuddys.class));
+                break;
+
+            case R.id.joinChallenge:
+                startActivity(new Intent(HomeActivity.this, AllChallenges.class));
                 break;
         }
     }

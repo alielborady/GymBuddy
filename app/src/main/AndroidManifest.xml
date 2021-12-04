@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymBuddy">
         <activity
+            android:name=".CreateChallenge"
+            android:exported="true" />
+        <activity
+            android:name=".AllChallenges"
+            android:exported="true" />
+        <activity
             android:name=".AllBuddys"
             android:exported="true" />
         <activity
