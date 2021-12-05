@@ -1,15 +1,24 @@
 package com.example.gymbuddy;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
 public class AllChallenges extends AppCompatActivity {
 
     private ImageButton createChallenge;
+
+    public RecyclerView challengeRecView;
+
+    public LocalDateTime now;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +32,30 @@ public class AllChallenges extends AppCompatActivity {
                 startActivity(new Intent(AllChallenges.this, CreateChallenge.class));
             }
         });
+
+        challengeRecView = (RecyclerView) findViewById(R.id.recycleView);
+
+        ArrayList<Challenge> challenges = new ArrayList<>();
+        now = LocalDateTime.now();
+
+        challenges.add(new Challenge("Squats", "Easy", now ));
+        challenges.add(new Challenge("Push Ups", "medium", now ));
+        challenges.add(new Challenge("Pull Ups", "hard", now ));
+        challenges.add(new Challenge("Squats", "Easy", now ));
+        challenges.add(new Challenge("Push Ups", "medium", now ));
+        challenges.add(new Challenge("Pull Ups", "hard", now ));
+        challenges.add(new Challenge("Squats", "Easy", now ));
+        challenges.add(new Challenge("Push Ups", "medium", now ));
+        challenges.add(new Challenge("Pull Ups", "hard", now ));
+        challenges.add(new Challenge("Squats", "Easy", now ));
+        challenges.add(new Challenge("Push Ups", "medium", now ));
+        challenges.add(new Challenge("Pull Ups", "hard", now ));
+
+        ChallengeRecViewAdapter adapter = new ChallengeRecViewAdapter();
+        adapter.setChallenges(challenges);
+
+        challengeRecView.setAdapter(adapter);
+        challengeRecView.setLayoutManager(new LinearLayoutManager(this));
 
 
     }

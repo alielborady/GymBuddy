@@ -30,5 +30,7 @@ public class CreateChallenge extends AppCompatActivity {
         // Apply the adapter to the spinner
         challengeSpinner.setAdapter(challengeAdapter);
         levelSpinner.setAdapter(levelAdapter);
+
+
     }
 }
