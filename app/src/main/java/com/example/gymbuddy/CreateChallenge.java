@@ -2,14 +2,19 @@ package com.example.gymbuddy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 public class CreateChallenge extends AppCompatActivity {
 
     private Spinner challengeSpinner;
     private Spinner levelSpinner;
+
+    private ImageButton createChallenge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +35,14 @@ public class CreateChallenge extends AppCompatActivity {
         // Apply the adapter to the spinner
         challengeSpinner.setAdapter(challengeAdapter);
         levelSpinner.setAdapter(levelAdapter);
+
+        createChallenge = findViewById(R.id.createChallenge);
+        createChallenge.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CreateChallenge.this, ChallengePage.class));
+            }
+        });
 
 
     }

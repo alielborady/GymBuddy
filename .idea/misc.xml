@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/top_corners.xml" value="0.3828125" />
         <entry key="app/src/main/res/layout/activity_all_buddys.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_all_challenges.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/activity_challenge_page.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_create_challenge.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
