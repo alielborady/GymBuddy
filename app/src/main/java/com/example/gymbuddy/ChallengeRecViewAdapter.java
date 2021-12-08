@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.progressindicator.LinearProgressIndicator;
+
 import java.util.ArrayList;
 
 public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecViewAdapter.ViewHolder>{
@@ -32,7 +34,6 @@ public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecV
         holder.level.setText(challenges.get(position).getLevel());
         holder.participants.setText(String.valueOf(challenges.get(position).getParticipants().size()));
 
-        System.out.println(challenges.get(position).getParticipants().toString());
 
     }
 
@@ -51,7 +52,7 @@ public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecV
         private TextView challengeName;
         private TextView participants;
         private TextView level;
-
+        private LinearProgressIndicator progressIndicator;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -59,6 +60,7 @@ public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecV
             challengeName = itemView.findViewById(R.id.challengeName);
             participants = itemView.findViewById(R.id.participants);
             level = itemView.findViewById(R.id.level);
+            progressIndicator = itemView.findViewById(R.id.progressIndicator);
         }
     }
 

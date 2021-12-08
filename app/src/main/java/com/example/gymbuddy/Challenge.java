@@ -12,16 +12,17 @@ public class Challenge {
 
     public String name;
     public String level;
-    public LocalDateTime startDate;
+    public Date startDate;
     public Date endDate;
     public int limit;
+    public int currentProgress;
     public ArrayList<String> participants;
 
-    public Challenge() {
+    public Challenge(){
 
     }
 
-    public Challenge(String name, String level, LocalDateTime startDate) {
+    public Challenge(String name, String level, Date startDate) {
         this.name = name;
         this.level = level;
         this.startDate = startDate;
@@ -34,11 +35,11 @@ public class Challenge {
             limit = 30;
         }
 
-        // set endDate by adding 10 days to startDAte
-        Date initial = Date.from(startDate.atZone(ZoneId.systemDefault()).toInstant());
+        currentProgress = 0;
+
 
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(initial);
+        calendar.setTime(startDate);
         calendar.add(Calendar.DAY_OF_MONTH, 10);
 
         endDate = calendar.getTime();
@@ -61,15 +62,13 @@ public class Challenge {
         return cap;
     }
 
-    public void setLevel(String level) {
+    public void setLevel(String level) { this.level = level; }
 
-    }
-
-    public LocalDateTime getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 

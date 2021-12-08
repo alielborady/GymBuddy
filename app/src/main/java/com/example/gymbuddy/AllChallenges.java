@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AllChallenges extends AppCompatActivity {
 
@@ -18,7 +20,7 @@ public class AllChallenges extends AppCompatActivity {
 
     public RecyclerView challengeRecView;
 
-    public LocalDateTime now;
+    public LocalDateTime nowLocal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +38,8 @@ public class AllChallenges extends AppCompatActivity {
         challengeRecView = (RecyclerView) findViewById(R.id.recycleView);
 
         ArrayList<Challenge> challenges = new ArrayList<>();
-        now = LocalDateTime.now();
+        nowLocal = LocalDateTime.now();
+        Date now = Date.from(nowLocal.atZone(ZoneId.systemDefault()).toInstant());
 
         challenges.add(new Challenge("Squats", "Easy", now ));
         challenges.add(new Challenge("Push Ups", "medium", now ));
