@@ -54,7 +54,7 @@ public class AllChallenges extends AppCompatActivity {
         challenges.add(new Challenge("Push Ups", "medium", now ));
         challenges.add(new Challenge("Pull Ups", "hard", now ));
 
-        ChallengeRecViewAdapter adapter = new ChallengeRecViewAdapter();
+        HomeActivityChallengeRecViewAdapter adapter = new HomeActivityChallengeRecViewAdapter();
         adapter.setChallenges(challenges);
 
         challengeRecView.setAdapter(adapter);

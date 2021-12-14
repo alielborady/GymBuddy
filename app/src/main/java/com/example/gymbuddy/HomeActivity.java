@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -60,9 +61,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         String userId = mAuth.getCurrentUser().getUid();
 
         ArrayList<Challenge> challenges = new ArrayList<>();
+        ArrayList<String> challengesKeys = new ArrayList<>();
         now = LocalDateTime.now();
 
-        ChallengeRecViewAdapter adapter = new ChallengeRecViewAdapter();
+        HomeActivityChallengeRecViewAdapter adapter = new HomeActivityChallengeRecViewAdapter();
 
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -71,9 +73,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     if (ds.getValue(Challenge.class).getParticipants().contains(userId)){
                         challenges.add(ds.getValue(Challenge.class));
                     }
+                    String key = ds.getKey();
+                    challengesKeys.add(key);
                 }
 
                 adapter.setChallenges(challenges);
+                adapter.setKeys(challengesKeys);
                 progressBar.setVisibility(View.GONE);
 
             }

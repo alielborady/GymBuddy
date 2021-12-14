@@ -1,5 +1,6 @@
 package com.example.gymbuddy;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +9,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-public class Challenge {
+public class Challenge implements Serializable {
 
     public String name;
     public String level;
@@ -16,6 +17,7 @@ public class Challenge {
     public Date endDate;
     public int limit;
     public int currentProgress;
+    public int doneDaily;
     public ArrayList<String> participants;
 
     public Challenge(){
@@ -36,6 +38,7 @@ public class Challenge {
         }
 
         currentProgress = 0;
+        doneDaily = 0;
 
 
         Calendar calendar = Calendar.getInstance();
@@ -92,8 +95,32 @@ public class Challenge {
         return participants;
     }
 
+    public void setParticipants(ArrayList<String> participants) {
+        this.participants = participants;
+    }
+
     public void addParticipant(String id){
         participants.add(id);
+    }
+
+    public int getDoneDaily() {
+        return doneDaily;
+    }
+
+    public void setDoneDaily(int doneDaily) {
+        this.doneDaily = doneDaily;
+    }
+
+    public void updateDoneDaily(int doneDaily) {
+        this.doneDaily = doneDaily;
+    }
+
+    public int getCurrentProgress() {
+        return currentProgress;
+    }
+
+    public void setCurrentProgress(int currentProgress) {
+        this.currentProgress = currentProgress;
     }
 
 

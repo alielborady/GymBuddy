@@ -83,7 +83,7 @@
 
 
                 <TextView
-                    android:id="@+id/textView"
+                    android:id="@+id/challengeProgress"
                     android:layout_width="57dp"
                     android:layout_height="15dp"
                     android:layout_marginLeft="10dp"
@@ -101,17 +101,18 @@
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/editTextNumber"
+                    android:id="@+id/updateRepsEditText"
                     android:layout_marginTop="7dp"
                     android:layout_width="70dp"
                     android:layout_height="20dp"
                     android:background="@color/white"
+                    android:textColor="@color/black"
                     android:ems="10"
                     android:inputType="number"
                     />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/updateReps"
                     android:layout_width="100dp"
                     android:layout_height="30dp"
                     android:layout_marginTop="3dp"
@@ -123,7 +124,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/level"
+                android:id="@+id/maxPerDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Max per day"

@@ -68,7 +68,6 @@ public class CreateChallenge extends AppCompatActivity {
         createChallenge.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(CreateChallenge.this, ChallengePage.class));
                 progressBar.setVisibility(View.VISIBLE);
                 String name = challengeSpinner.getSelectedItem().toString();
                 String level = levelSpinner.getSelectedItem().toString();

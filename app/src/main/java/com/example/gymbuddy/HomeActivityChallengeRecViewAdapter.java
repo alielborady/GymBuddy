@@ -1,5 +1,7 @@
 package com.example.gymbuddy;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +13,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecViewAdapter.ViewHolder>{
+public class HomeActivityChallengeRecViewAdapter extends  RecyclerView.Adapter<HomeActivityChallengeRecViewAdapter.ViewHolder>{
 
     private ArrayList<Challenge> challenges = new ArrayList<>();
+    private ArrayList<String> challengesKeys = new ArrayList<>();
 
-    public ChallengeRecViewAdapter() {
+    public HomeActivityChallengeRecViewAdapter() {
     }
 
     @NonNull
@@ -30,9 +34,26 @@ public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecV
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.challengeName.setText(challenges.get(position).getName());
-        holder.level.setText(challenges.get(position).getLevel());
-        holder.participants.setText(String.valueOf(challenges.get(position).getParticipants().size()));
+        Challenge challenge = challenges.get(position);
+
+        holder.challengeName.setText(challenge.getName());
+        holder.level.setText(challenge.getLevel());
+        holder.participants.setText(String.valueOf(challenge.getParticipants().size()));
+
+        String challengeKey = challengesKeys.get(position);
+
+        Intent intent = new Intent(holder.context, ChallengePage.class);
+        intent.putExtra("challenge", challenge);
+        intent.putExtra("key",challengeKey);
+        intent.putExtra("position", position);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.context.startActivity(intent);
+            }
+        });
+
+
 
 
     }
@@ -47,12 +68,18 @@ public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecV
         notifyDataSetChanged();
     }
 
+    public void setKeys(ArrayList<String> challengesKeys) {
+        this.challengesKeys = challengesKeys;
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView challengeName;
         private TextView participants;
         private TextView level;
         private LinearProgressIndicator progressIndicator;
+
+        private Context context;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +88,9 @@ public class ChallengeRecViewAdapter extends  RecyclerView.Adapter<ChallengeRecV
             participants = itemView.findViewById(R.id.participants);
             level = itemView.findViewById(R.id.level);
             progressIndicator = itemView.findViewById(R.id.progressIndicator);
+
+            context = itemView.getContext();
+
         }
     }
 
