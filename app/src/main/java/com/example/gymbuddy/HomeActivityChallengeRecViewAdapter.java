@@ -36,9 +36,14 @@ public class HomeActivityChallengeRecViewAdapter extends  RecyclerView.Adapter<H
 
         Challenge challenge = challenges.get(position);
 
+        int max = challenge.getLimit() * 10 * challenge.getParticipants().size();
+
         holder.challengeName.setText(challenge.getName());
         holder.level.setText(challenge.getLevel());
         holder.participants.setText(String.valueOf(challenge.getParticipants().size()));
+        holder.progressIndicator.setMin(0);
+        holder.progressIndicator.setMax(max);
+        holder.progressIndicator.setProgress(challenge.getCurrentProgress());
 
         String challengeKey = challengesKeys.get(position);
 
@@ -52,9 +57,6 @@ public class HomeActivityChallengeRecViewAdapter extends  RecyclerView.Adapter<H
                 holder.context.startActivity(intent);
             }
         });
-
-
-
 
     }
 

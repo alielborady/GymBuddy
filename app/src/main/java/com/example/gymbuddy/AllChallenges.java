@@ -41,18 +41,18 @@ public class AllChallenges extends AppCompatActivity {
         nowLocal = LocalDateTime.now();
         Date now = Date.from(nowLocal.atZone(ZoneId.systemDefault()).toInstant());
 
-        challenges.add(new Challenge("Squats", "Easy", now ));
-        challenges.add(new Challenge("Push Ups", "medium", now ));
-        challenges.add(new Challenge("Pull Ups", "hard", now ));
-        challenges.add(new Challenge("Squats", "Easy", now ));
-        challenges.add(new Challenge("Push Ups", "medium", now ));
-        challenges.add(new Challenge("Pull Ups", "hard", now ));
-        challenges.add(new Challenge("Squats", "Easy", now ));
-        challenges.add(new Challenge("Push Ups", "medium", now ));
-        challenges.add(new Challenge("Pull Ups", "hard", now ));
-        challenges.add(new Challenge("Squats", "Easy", now ));
-        challenges.add(new Challenge("Push Ups", "medium", now ));
-        challenges.add(new Challenge("Pull Ups", "hard", now ));
+//        challenges.add(new Challenge("Squats", "Easy", now ));
+//        challenges.add(new Challenge("Push Ups", "medium", now ));
+//        challenges.add(new Challenge("Pull Ups", "hard", now ));
+//        challenges.add(new Challenge("Squats", "Easy", now ));
+//        challenges.add(new Challenge("Push Ups", "medium", now ));
+//        challenges.add(new Challenge("Pull Ups", "hard", now ));
+//        challenges.add(new Challenge("Squats", "Easy", now ));
+//        challenges.add(new Challenge("Push Ups", "medium", now ));
+//        challenges.add(new Challenge("Pull Ups", "hard", now ));
+//        challenges.add(new Challenge("Squats", "Easy", now ));
+//        challenges.add(new Challenge("Push Ups", "medium", now ));
+//        challenges.add(new Challenge("Pull Ups", "hard", now ));
 
         HomeActivityChallengeRecViewAdapter adapter = new HomeActivityChallengeRecViewAdapter();
         adapter.setChallenges(challenges);

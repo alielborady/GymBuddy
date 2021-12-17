@@ -23,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,7 +59,7 @@ public class ChallengePage extends AppCompatActivity {
         Intent intent = getIntent();
         Challenge challenge = (Challenge) intent.getSerializableExtra("challenge");
         String challengeKey = (String) intent.getSerializableExtra("key");
-        int challengePosition = (Integer) intent.getSerializableExtra("position");
+//        int challengePosition = (Integer) intent.getSerializableExtra("position");
 
         int max = challenge.limit * 10 * challenge.getParticipants().size();
 
@@ -98,16 +101,17 @@ public class ChallengePage extends AppCompatActivity {
                     return;
                 }
 
-                int doneDaily = challenge.getDoneDaily();
+//                int doneDaily = challenge.getDoneDaily();
+                int limit = challenge.getLimit();
                 int currentProgress = challenge.getCurrentProgress();
 
-                if (doneDaily +  update <= challenge.getLimit()){
-                    challenge.setDoneDaily(doneDaily + update);
+                if (update + currentProgress < (limit * 10)){
+//                    challenge.setDoneDaily(doneDaily + update);
                     challenge.setCurrentProgress(currentProgress + update);
-                    updateData(challengeKey, challengePosition,(doneDaily+ update), (currentProgress + update) );
+                    updateData(challengeKey, challenge );
 
                 } else {
-                    Toast.makeText(ChallengePage.this, "New rep number is more than the daily limit", Toast.LENGTH_LONG).show();
+                    Toast.makeText(ChallengePage.this, "You have already completed your part in this challenge", Toast.LENGTH_LONG).show();
                 }
 
 
@@ -116,28 +120,52 @@ public class ChallengePage extends AppCompatActivity {
 
     }
 
-    private void updateData(String challengeKey,int challengePosition, int updateDaily, int currentProgress) {
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    private void updateData(String challengeKey, Challenge challenge) {
 
         HashMap challengeMap = new HashMap();
-        challengeMap.put("doneDaily",updateDaily);
-        challengeMap.put("currentProgress",currentProgress);
+        challengeMap.put("currentProgress",challenge.getCurrentProgress());
+
+        LocalDateTime now = LocalDateTime.now();
+        Date nowDate = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
 
         mDatabase = FirebaseDatabase.getInstance()
                 .getReference("challenges")
                 .child(challengeKey);
-        mDatabase.updateChildren(challengeMap).addOnCompleteListener(new OnCompleteListener() {
-            @Override
-            public void onComplete(@NonNull Task task) {
+        
+        if (nowDate.compareTo(challenge.getEndDate()) < 0){
 
-                if (task.isSuccessful()){
-                    HomeActivityChallengeRecViewAdapter adapter = new HomeActivityChallengeRecViewAdapter();
-                    adapter.notifyItemChanged(challengePosition);
-                    Toast.makeText(ChallengePage.this, "Nicely done!", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(ChallengePage.this, "Try Again", Toast.LENGTH_LONG).show();
+            mDatabase.updateChildren(challengeMap).addOnCompleteListener(new OnCompleteListener() {
+                @Override
+                public void onComplete(@NonNull Task task) {
+
+                    if (task.isSuccessful()){
+                        Toast.makeText(ChallengePage.this, "Nicely done!", Toast.LENGTH_LONG).show();
+                        updateRepsEditText = (EditText) findViewById(R.id.updateRepsEditText);
+                        updateRepsEditText.setText("");
+                        startActivity(new Intent(ChallengePage.this, HomeActivity.class));
+                    } else {
+                        Toast.makeText(ChallengePage.this, "Try Again", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
+            });
+
+        } else {
+
+            mDatabase.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()){
+                        Toast.makeText(ChallengePage.this, "Sorry, this challenge has already expired", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(ChallengePage.this, HomeActivity.class));
+                    }
+                }
+            });
+        }
 
     }
 }
