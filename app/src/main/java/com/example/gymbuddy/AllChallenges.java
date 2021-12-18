@@ -1,13 +1,23 @@
 package com.example.gymbuddy;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -20,7 +30,14 @@ public class AllChallenges extends AppCompatActivity {
 
     public RecyclerView challengeRecView;
 
-    public LocalDateTime nowLocal;
+    private ProgressBar progressBar;
+
+//    public LocalDateTime nowLocal;
+
+    private static final String TAG = "MyActivity";
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,25 +54,40 @@ public class AllChallenges extends AppCompatActivity {
 
         challengeRecView = (RecyclerView) findViewById(R.id.recycleView);
 
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.VISIBLE);
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference("challenges");
+        String userId = mAuth.getCurrentUser().getUid();
+
         ArrayList<Challenge> challenges = new ArrayList<>();
-        nowLocal = LocalDateTime.now();
-        Date now = Date.from(nowLocal.atZone(ZoneId.systemDefault()).toInstant());
+        ArrayList<String> challengesKeys = new ArrayList<>();
 
-//        challenges.add(new Challenge("Squats", "Easy", now ));
-//        challenges.add(new Challenge("Push Ups", "medium", now ));
-//        challenges.add(new Challenge("Pull Ups", "hard", now ));
-//        challenges.add(new Challenge("Squats", "Easy", now ));
-//        challenges.add(new Challenge("Push Ups", "medium", now ));
-//        challenges.add(new Challenge("Pull Ups", "hard", now ));
-//        challenges.add(new Challenge("Squats", "Easy", now ));
-//        challenges.add(new Challenge("Push Ups", "medium", now ));
-//        challenges.add(new Challenge("Pull Ups", "hard", now ));
-//        challenges.add(new Challenge("Squats", "Easy", now ));
-//        challenges.add(new Challenge("Push Ups", "medium", now ));
-//        challenges.add(new Challenge("Pull Ups", "hard", now ));
+        AllChallengesRecViewAdapter adapter = new AllChallengesRecViewAdapter();
 
-        HomeActivityChallengeRecViewAdapter adapter = new HomeActivityChallengeRecViewAdapter();
-        adapter.setChallenges(challenges);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    if ((!ds.getValue(Challenge.class).getParticipants().contains(userId)) && (ds.getValue(Challenge.class).getParticipants().size() < 10)){
+                        challenges.add(ds.getValue(Challenge.class));
+                        String key = ds.getKey();
+                        challengesKeys.add(key);
+                    }
+                }
+
+                adapter.setChallenges(challenges);
+                adapter.setKeys(challengesKeys);
+                progressBar.setVisibility(View.GONE);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            }
+        });
 
         challengeRecView.setAdapter(adapter);
         challengeRecView.setLayoutManager(new LinearLayoutManager(this));

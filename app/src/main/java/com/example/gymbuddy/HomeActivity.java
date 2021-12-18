@@ -32,7 +32,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     public RecyclerView challengeRecView;
 
-    public LocalDateTime now;
+//    public LocalDateTime now;
 
     private static final String TAG = "MyActivity";
 
@@ -62,7 +62,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         ArrayList<Challenge> challenges = new ArrayList<>();
         ArrayList<String> challengesKeys = new ArrayList<>();
-        now = LocalDateTime.now();
+//        now = LocalDateTime.now();
 
         HomeActivityChallengeRecViewAdapter adapter = new HomeActivityChallengeRecViewAdapter();
 
@@ -72,9 +72,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 for (DataSnapshot ds : snapshot.getChildren()){
                     if (ds.getValue(Challenge.class).getParticipants().contains(userId)){
                         challenges.add(ds.getValue(Challenge.class));
+                        String key = ds.getKey();
+                        challengesKeys.add(key);
                     }
-                    String key = ds.getKey();
-                    challengesKeys.add(key);
                 }
 
                 adapter.setChallenges(challenges);
