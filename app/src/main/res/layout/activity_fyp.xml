@@ -43,9 +43,10 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="40dp"
+        android:layout_marginVertical="20dp"
         app:cardBackgroundColor="#02377C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +55,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:orientation="vertical"
@@ -65,11 +66,11 @@
                 android:layout_height="130dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:layout_marginBottom="60dp"
+                android:layout_marginBottom="40dp"
                 android:background="@drawable/img" />
 
             <TextView
-                android:id="@+id/workout"
+                android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -78,66 +79,145 @@
                 android:textColor="@color/white"
                 android:textSize="30dp" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/userAge"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-
-                <com.google.android.material.progressindicator.LinearProgressIndicator
-                    android:id="@+id/progressIndicator"
-                    android:layout_width="240dp"
-                    android:layout_height="6dp"
-                    app:trackColor="#757373"
-                    app:trackThickness="15dp" />
-
-
-                <TextView
-                    android:id="@+id/challengeProgress"
-                    android:layout_width="57dp"
-                    android:layout_height="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:text="12/100"
-                    android:textColor="@color/white"
-                    android:textSize="10dp" />
-
-            </LinearLayout>
-
+                android:text="Age:"
+                android:textSize="17dp"
+                android:textColor="@color/white"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_gravity="right"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/updateRepsEditText"
-                    android:layout_width="70dp"
-                    android:layout_height="20dp"
-                    android:layout_marginTop="7dp"
-                    android:background="@color/white"
-                    android:ems="10"
-                    android:inputType="number"
-                    android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/userGym"
+                    android:layout_marginTop="3dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gym:"
+                    android:textSize="17dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/white"/>
 
                 <Button
-                    android:id="@+id/updateReps"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="3dp"
-                    android:text="Update reps"
-                    android:textSize="8dp" />
+                    android:layout_width="wrap_content"
+                    android:text="Edit Gym"
+                    android:textSize="10dp"
+                    android:layout_height="40dp"/>
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/maxPerDay"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Max per day"
-                android:textColor="@color/white"
-                android:textSize="8dp" />
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:id="@+id/currentWeight"
+                    android:text="Current weight"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/goalWeight"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/white"
+                    android:text="Goal weight"
+                    android:textSize="17dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/currentWeightInput"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/goalWeightInput"
+                    android:layout_marginLeft="50dp"
+                    android:textColor="@color/white"
+                    android:textSize="17dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="60dp"
+                    android:layout_marginRight="40dp"
+                    android:inputType="number"
+                    android:layout_height="35dp"
+                    android:background="@color/white"/>
+
+                <EditText
+                    android:inputType="number"
+                    android:layout_width="60dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="40dp"
+                    android:background="@color/white"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:textSize="8dp"
+                    android:text="Update"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:layout_marginRight="38dp" />
+
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="53dp"
+                    android:minHeight="0dp"
+                    android:minWidth="0dp"
+                    android:text="Update"
+                    android:layout_marginLeft="38dp"
+                    android:textSize="8dp"/>
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
