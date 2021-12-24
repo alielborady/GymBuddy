@@ -27,6 +27,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private ImageButton findABuddy;
     private ImageButton joinChallenge;
+    private ImageButton myInfo;
 
     private ProgressBar progressBar;
 
@@ -49,6 +50,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         joinChallenge = (ImageButton) findViewById(R.id.joinChallenge);
         joinChallenge.setOnClickListener(this);
+
+        myInfo = (ImageButton) findViewById(R.id.myInfo);
+        myInfo.setOnClickListener(this);
 
         challengeRecView = (RecyclerView) findViewById(R.id.recycleView);
 
@@ -104,6 +108,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.joinChallenge:
                 startActivity(new Intent(HomeActivity.this, AllChallenges.class));
+                break;
+
+            case R.id.myInfo:
+                startActivity(new Intent(HomeActivity.this, FypActivity.class));
                 break;
         }
     }
