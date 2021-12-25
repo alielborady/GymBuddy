@@ -70,7 +70,7 @@ public class ChallengePage extends AppCompatActivity {
         workout.setText(challenge.getName());
         String challengeProgressString = challenge.getCurrentProgress() + " / " + max;
         challengeProgress.setText(challengeProgressString);
-        maxPerDay.setText("Max "+ String.valueOf(challenge.getLimit()) + " reps per day");
+        maxPerDay.setText("Your target is "+ String.valueOf(challenge.getLimit()) + " reps per day");
 
         updateReps.setOnClickListener(new View.OnClickListener() {
             @Override

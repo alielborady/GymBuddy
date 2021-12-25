@@ -105,6 +105,7 @@
                     android:textColor="@color/white"/>
 
                 <Button
+                    android:id="@+id/editGym"
                     android:layout_width="wrap_content"
                     android:text="Edit Gym"
                     android:textSize="10dp"
@@ -173,15 +174,21 @@
                 android:orientation="horizontal">
 
                 <EditText
+                    android:id="@+id/currentWeightEditText"
                     android:layout_width="60dp"
                     android:layout_marginRight="40dp"
+                    android:paddingHorizontal="5dp"
                     android:inputType="number"
                     android:layout_height="35dp"
+                    android:textColor="@color/black"
                     android:background="@color/white"/>
 
                 <EditText
+                    android:id="@+id/goalWeightEditText"
+                    android:paddingHorizontal="5dp"
                     android:inputType="number"
                     android:layout_width="60dp"
+                    android:textColor="@color/black"
                     android:layout_height="35dp"
                     android:layout_marginLeft="40dp"
                     android:background="@color/white"/>
@@ -197,6 +204,7 @@
 
 
                 <Button
+                    android:id="@+id/currentWeightButton"
                     android:layout_width="wrap_content"
                     android:layout_height="53dp"
                     android:textSize="8dp"
@@ -207,6 +215,7 @@
 
 
                 <Button
+                    android:id="@+id/goalWeightButton"
                     android:layout_width="wrap_content"
                     android:layout_height="53dp"
                     android:minHeight="0dp"
