@@ -27,6 +27,7 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
 
     FirebaseAuth mAuth;
     DatabaseReference databaseReference;
+    DatabaseReference secondDatabaseReference;
 
     private TextView userName;
     private TextView userAge;
@@ -83,7 +84,19 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
                     userGym.setText("Gym: Unavailable");
                 } else {
                     String gymId = snapshot.getValue(User.class).getGymId();
-                    getGymName(gymId);
+                    secondDatabaseReference = FirebaseDatabase.getInstance().getReference("gyms").child(gymId);
+                    secondDatabaseReference.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            userGym.setText("Gym: " + snapshot.getValue(Gym.class).getName());
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Log.w(TAG, "loadPost:onCancelled", error.toException());
+                            userGym.setText("Unavailable");
+                        }
+                    });
                 }
             }
 
@@ -94,9 +107,12 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
         });
     }
 
-    private void getGymName(String gymId) {
-        databaseReference = FirebaseDatabase.getInstance().getReference("gyms");
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        finish();
+//        startActivity(getIntent());
+//    }
 
     @Override
     public void onClick(View view) {

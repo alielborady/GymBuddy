@@ -90,7 +90,7 @@ public class CreateChallenge extends AppCompatActivity {
                                     startActivity(new Intent(CreateChallenge.this, HomeActivity.class));
 
                                 } else {
-                                    Toast.makeText(CreateChallenge.this, "", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(CreateChallenge.this, "Please try again", Toast.LENGTH_SHORT).show();
                                 }
 
                             }
