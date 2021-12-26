@@ -6,24 +6,25 @@
     android:layout_height="match_parent"
     android:background="#001F47"
     android:paddingTop="5dp"
-    tools:context=".AllGyms">
+    tools:context=".CreateGym">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        >
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="#001F47"
-            app:menu="@menu/top_app_bar"
-            app:title="All Gyms"
+            app:title="All Challenges"
             app:titleCentered="true"
-            app:titleTextColor="@color/white" />
+            app:titleTextColor="@color/white"
+            app:menu="@menu/top_app_bar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -40,26 +41,59 @@
         app:layout_constraintVertical_bias="0.09"
         tools:layout_editor_absoluteX="0dp" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:text="Click on a gym to select as your main"
-        android:textColor="#B5B5B8"
-        android:layout_height="wrap_content"
-        android:id="@+id/selectGym"
-        android:layout_marginVertical="15dp"
-        android:layout_marginHorizontal="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp"
         app:layout_constraintTop_toBottomOf="@+id/materialDivider"
-        />
+        android:layout_height="wrap_content">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigatin_view"
-        app:layout_constraintTop_toBottomOf="@+id/selectGym"
-        app:layout_constraintVertical_bias="0.038"
-        tools:layout_editor_absoluteX="0dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gym name:"
+            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:textColor="@color/white"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/gymName"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@color/white"
+            />
+
+        <TextView
+            android:layout_marginVertical="15dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gym address:"
+            android:textColor="@color/white"
+            />
+
+        <EditText
+            android:id="@+id/gymAddress"
+            android:layout_marginVertical="15dp"
+            android:layout_width="match_parent"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_height="80dp"
+            android:background="@color/white"
+            />
+
+    </LinearLayout>
+
+
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigatin_view"
@@ -96,14 +130,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:text="Register A Gym"/>
+                    android:text="Create Gym"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-
         </com.google.android.flexbox.FlexboxLayout>
-
-
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
