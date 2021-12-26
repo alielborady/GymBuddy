@@ -10,11 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymBuddy">
         <activity
+            android:name=".Chat"
+            android:exported="false"
+            android:label="@string/title_activity_chat"
+            android:theme="@style/Theme.GymBuddy.NoActionBar" />
+        <activity
             android:name=".AllGyms"
             android:exported="true" />
         <activity
             android:name=".FypActivity"
             android:exported="true" />
+
         <activity
             android:name=".ChallengePage"
             android:exported="true" />

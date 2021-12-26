@@ -4,9 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/circle.xml" value="0.38229166666666664" />
+        <entry key="app/src/main/res/drawable/edit_text_border.xml" value="0.22" />
         <entry key="app/src/main/res/drawable/ic_dumbbell.xml" value="0.3828125" />
         <entry key="app/src/main/res/drawable/ic_friends.xml" value="0.3828125" />
         <entry key="app/src/main/res/drawable/ic_peson.xml" value="0.3828125" />
+        <entry key="app/src/main/res/drawable/ic_send.xml" value="0.18518518518518517" />
+        <entry key="app/src/main/res/drawable/ic_send_background.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_send_foreground.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/img.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/drawable/no_user_background.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.3828125" />
@@ -15,6 +19,7 @@
         <entry key="app/src/main/res/layout/activity_all_challenges.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_all_gyms.xml" value="0.3442028985507246" />
         <entry key="app/src/main/res/layout/activity_challenge_page.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.16825396825396827" />
         <entry key="app/src/main/res/layout/activity_create_challenge.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_fyp.xml" value="0.36614583333333334" />
@@ -23,6 +28,11 @@
         <entry key="app/src/main/res/layout/activity_user_register.xml" value="0.35507246376811596" />
         <entry key="app/src/main/res/layout/buddy_items.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/challenge_item.xml" value="0.36666666666666664" />
+        <entry key="app/src/main/res/layout/chat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_chat.xml" value="0.11639492753623189" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.11639492753623189" />
+        <entry key="app/src/main/res/layout/fragment_second.xml" value="0.11684782608695653" />
+        <entry key="app/src/main/res/layout/message.xml" value="0.11639492753623189" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/no_user.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/no_user_round.xml" value="0.38229166666666664" />

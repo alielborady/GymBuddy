@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -86,6 +87,16 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
 //            holder.workoutTime.setText(holder.strDate);
         }
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.context, Chat.class);
+                System.out.println(position);
+                intent.putExtra("secondUserEmail", users.get(position).getEmail());
+                holder.context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -120,13 +131,6 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
             workoutTime = itemView.findViewById(R.id.workoutTime);
 
             context = itemView.getContext();
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // go to chat view/class
-                    context.startActivity(new Intent(context, HomeActivity.class));
-                }
-            });
 
         }
     }
