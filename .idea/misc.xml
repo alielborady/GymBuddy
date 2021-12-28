@@ -19,7 +19,7 @@
         <entry key="app/src/main/res/layout/activity_all_challenges.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_all_gyms.xml" value="0.3442028985507246" />
         <entry key="app/src/main/res/layout/activity_challenge_page.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.16825396825396827" />
+        <entry key="app/src/main/res/layout/activity_chat.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_create_challenge.xml" value="0.3515625" />
         <entry key="app/src/main/res/layout/activity_create_gym.xml" value="0.3451086956521739" />
         <entry key="app/src/main/res/layout/activity_forgot_password.xml" value="0.36666666666666664" />
@@ -33,8 +33,8 @@
         <entry key="app/src/main/res/layout/content_chat.xml" value="0.11639492753623189" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.11639492753623189" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.11684782608695653" />
-        <entry key="app/src/main/res/layout/message.xml" value="0.11639492753623189" />
         <entry key="app/src/main/res/layout/gym_item.xml" value="0.3451086956521739" />
+        <entry key="app/src/main/res/layout/message.xml" value="0.11639492753623189" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/no_user.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/no_user_round.xml" value="0.38229166666666664" />

@@ -131,6 +131,7 @@ public class Chat extends AppCompatActivity {
 
                     if (model.getFirstUser().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                         messageUser.setTextColor(Color.BLUE);
+                        messageUser.setText("You");
 
                     } else {
                         messageUser.setTextColor(Color.GRAY);
