@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.firebase.ui.database.FirebaseListAdapter;
 import com.firebase.ui.database.FirebaseListOptions;
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -47,12 +48,17 @@ public class Chat extends AppCompatActivity {
     private ActivityChatBinding binding;
     FirebaseListAdapter adapter;
 
+    private MaterialToolbar topAppBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        topAppBar = (MaterialToolbar) findViewById(R.id.topAppBar);
+        topAppBar.setTitle(getIntent().getStringExtra("secondUserName"));
         ListView listOfMessages = (ListView) findViewById(R.id.list_of_messages);
         String secondUserEmail = getIntent().getStringExtra("secondUserEmail");
         FloatingActionButton fab =

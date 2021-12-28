@@ -93,6 +93,7 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
                 Intent intent = new Intent(holder.context, Chat.class);
                 System.out.println(position);
                 intent.putExtra("secondUserEmail", users.get(position).getEmail());
+                intent.putExtra("secondUserName",users.get(position).getFullName());
                 holder.context.startActivity(intent);
             }
         });
