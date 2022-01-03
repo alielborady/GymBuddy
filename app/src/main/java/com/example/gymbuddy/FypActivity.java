@@ -3,6 +3,7 @@ package com.example.gymbuddy;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class FypActivity extends AppCompatActivity implements View.OnClickListener{
@@ -34,6 +39,7 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
     private TextView currentWeightInput;
     private TextView goalWeightInput;
     private TextView userGym;
+    private TextView userTime;
 
     private EditText currentWeight;
     private EditText goalWeight;
@@ -41,6 +47,14 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
     private Button currentWeightButton;
     private Button goalWeightButton;
     private Button editGym;
+    private Button editTime;
+
+    private TimePickerDialog timePickerDialog;
+
+    private Calendar calendar;
+    private int currentHour;
+    private int currentMinute;
+    private String amPm;
 
     private static final String TAG = "FYPActivity";
 
@@ -54,6 +68,7 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
         currentWeightInput = (TextView) findViewById(R.id.currentWeightInput);
         goalWeightInput = (TextView) findViewById(R.id.goalWeightInput);
         userGym = (TextView) findViewById(R.id.userGym);
+        userTime = (TextView) findViewById(R.id.userTime);
 
         currentWeight = (EditText) findViewById(R.id.currentWeightEditText);
         goalWeight = (EditText) findViewById(R.id.goalWeightEditText);
@@ -66,6 +81,9 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
 
         editGym = (Button) findViewById(R.id.editGym);
         editGym.setOnClickListener(this);
+
+        editTime = (Button) findViewById(R.id.editTime);
+        editTime.setOnClickListener(this);
 
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getCurrentUser().getUid();
@@ -80,9 +98,18 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
                 userAge.setText("Age: " + snapshot.getValue(User.class).getAge());
                 currentWeightInput.setText(String.valueOf(snapshot.getValue(User.class).getCurrentWeight()));
                 goalWeightInput.setText(String.valueOf(snapshot.getValue(User.class).getGoalWeight()));
+
                 if ((snapshot.getValue(User.class).getGymId()).equalsIgnoreCase("Unavailable")){
                     userGym.setText("Gym: Unavailable");
+                    userTime.setText("Time: Unavailable");
                 } else {
+
+                    if (snapshot.getValue(User.class).getWorkoutTime() == null){
+                        userTime.setText("Time: Unavailable");
+                    } else {
+                        userTime.setText("Time: " + snapshot.getValue(User.class).getWorkoutTime());
+                    }
+
                     String gymId = snapshot.getValue(User.class).getGymId();
                     secondDatabaseReference = FirebaseDatabase.getInstance().getReference("gyms").child(gymId);
                     secondDatabaseReference.addValueEventListener(new ValueEventListener() {
@@ -97,6 +124,7 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
                             userGym.setText("Unavailable");
                         }
                     });
+
                 }
             }
 
@@ -159,7 +187,55 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
 
             case R.id.editGym:
                 startActivity(new Intent(FypActivity.this, AllGyms.class));
+                return;
+
+            case R.id.editTime:
+
+                calendar = Calendar.getInstance();
+                currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                currentMinute = calendar.get(Calendar.MINUTE);
+
+                timePickerDialog = new TimePickerDialog(FypActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                        if (i >= 12){
+                            amPm = " PM";
+                        } else {
+                            amPm = " AM";
+                        }
+                        String update = String.format("%02d:%02d", i, i1) + amPm;
+                        userTime.setText("Time:  " + update);
+                        updateWorkoutTime(update);
+                    }
+                },currentHour,currentMinute,false);
+
+
+                timePickerDialog.show();
+                return;
         }
+    }
+
+    private void updateWorkoutTime(String update) {
+        mAuth = FirebaseAuth.getInstance();
+        String userId = mAuth.getCurrentUser().getUid();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
+
+        HashMap userMap = new HashMap();
+        userMap.put("workoutTime", update);
+
+        databaseReference.updateChildren(userMap).addOnCompleteListener(new OnCompleteListener() {
+            @Override
+            public void onComplete(@NonNull Task task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(FypActivity.this, "Workout time is updated", Toast.LENGTH_LONG).show();
+
+                } else {
+                    Toast.makeText(FypActivity.this, "Please try again", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
     }
 
     private void updateData(String key, double weight) {

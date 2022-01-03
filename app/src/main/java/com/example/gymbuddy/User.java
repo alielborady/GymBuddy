@@ -8,7 +8,7 @@ public class User {
 
     public double currentWeight, goalWeight;
 
-    public Date workoutTime;
+    public String workoutTime;
 
     public String getFullName() {
         return fullName;
@@ -50,11 +50,11 @@ public class User {
         this.goalWeight = goalWeight;
     }
 
-    public Date getWorkoutTime() {
+    public String getWorkoutTime() {
         return workoutTime;
     }
 
-    public void setWorkoutTime(Date workoutTime) {
+    public void setWorkoutTime(String workoutTime) {
         this.workoutTime = workoutTime;
     }
 

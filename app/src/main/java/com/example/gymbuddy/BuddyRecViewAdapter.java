@@ -57,8 +57,8 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
 
         if (gymId.equalsIgnoreCase("Unavailable")){
 
-            holder.gymName.setText("Unavailable");
-            holder.strDate = "Unavailable";
+            holder.gymName.setText("Gym: Unavailable");
+            holder.workoutTime.setText("Time: Unavailable");
 
         } else {
 
@@ -78,13 +78,13 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
                 }
             });
 
-//            holder.strDate = "Unavailable";
-//
-//            Date date = users.get(position).getWorkoutTime();
-//            DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
-//            holder.strDate = dateFormat.format(date);
-//
-//            holder.workoutTime.setText(holder.strDate);
+            // get workout time
+            if (users.get(position).getWorkoutTime() == null){
+                holder.workoutTime.setText("Time: Unavailable");
+            } else {
+                holder.workoutTime.setText("Time: " + users.get(position).getWorkoutTime());
+            }
+
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -120,7 +120,7 @@ public class BuddyRecViewAdapter extends RecyclerView.Adapter<BuddyRecViewAdapte
 
         public Button buddyCard;
 
-        public String gymNameText, strDate;
+        public String gymNameText;
 
         private Context context;
 
