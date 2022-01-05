@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class AllBuddys extends AppCompatActivity {
 
@@ -65,7 +66,29 @@ public class AllBuddys extends AppCompatActivity {
                         users.add(ds.getValue(User.class));
                     }
                 }
-                adapter.setUsers(users);
+
+                ArrayList orderedList = new ArrayList();
+
+                for (User user : users) {
+                    if (user.getGymId().equalsIgnoreCase("unavailable") && user.getWorkoutTime() == null) {
+                        orderedList.add(0, user);
+                    }
+                }
+
+                for (User user : users) {
+                    if (((user.getWorkoutTime() == null) && (!user.getGymId().equalsIgnoreCase("unavailable")))
+                            || ((user.getWorkoutTime() != null) && (user.getGymId().equalsIgnoreCase("unavailable")))) {
+                        orderedList.add(0, user);
+                    }
+                }
+
+                for (User user : users) {
+                    if (!(user.getWorkoutTime() == null) && !(user.getGymId().equalsIgnoreCase("unavailable"))) {
+                        orderedList.add(0, user);
+                    }
+                }
+
+                adapter.setUsers(orderedList);
 
                 progressBar.setVisibility(View.GONE);
 

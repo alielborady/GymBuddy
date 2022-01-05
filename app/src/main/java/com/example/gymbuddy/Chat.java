@@ -1,7 +1,9 @@
 package com.example.gymbuddy;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.firebase.ui.database.FirebaseListAdapter;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -50,12 +53,25 @@ public class Chat extends AppCompatActivity {
 
     private MaterialToolbar topAppBar;
 
+    private Button recommend;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityChatBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        recommend = (Button) findViewById(R.id.recommend);
+        recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/"));
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                intent.setPackage("com.google.android.youtube");
+//                startActivity(intent);
+            }
+        });
 
         topAppBar = (MaterialToolbar) findViewById(R.id.topAppBar);
         topAppBar.setTitle(getIntent().getStringExtra("secondUserName"));

@@ -49,6 +49,7 @@
 
             <Button
                 android:layout_width="wrap_content"
+                android:id="@+id/recommend"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:text="Recommend workout"
