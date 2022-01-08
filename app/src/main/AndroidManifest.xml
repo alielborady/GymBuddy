@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GymBuddy">
         <activity
+            android:name=".AllWorkouts"
+            android:exported="true" />
+        <activity
             android:name=".Chat"
             android:exported="false"
             android:label="@string/title_activity_chat"
@@ -23,7 +26,6 @@
         <activity
             android:name=".FypActivity"
             android:exported="true" />
-
         <activity
             android:name=".ChallengePage"
             android:exported="true" />

@@ -66,10 +66,7 @@ public class Chat extends AppCompatActivity {
         recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/"));
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                intent.setPackage("com.google.android.youtube");
-//                startActivity(intent);
+                startActivity(new Intent(Chat.this, AllWorkouts.class));
             }
         });
 
