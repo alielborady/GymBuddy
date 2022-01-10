@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/drawable/img.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/drawable/no_user_background.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/drawable/rounded_corners.xml" value="0.3828125" />
+        <entry key="app/src/main/res/drawable/rounded_rate_corners.xml" value="0.38229166666666664" />
         <entry key="app/src/main/res/drawable/top_corners.xml" value="0.3828125" />
         <entry key="app/src/main/res/layout/activity_all_buddys.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/activity_all_challenges.xml" value="0.36666666666666664" />
@@ -36,6 +37,7 @@
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.11684782608695653" />
         <entry key="app/src/main/res/layout/gym_item.xml" value="0.3451086956521739" />
         <entry key="app/src/main/res/layout/message.xml" value="0.11639492753623189" />
+        <entry key="app/src/main/res/layout/ratepopup.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/layout/workout_item.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/no_user.xml" value="0.38229166666666664" />

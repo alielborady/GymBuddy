@@ -1,5 +1,6 @@
 package com.example.gymbuddy;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsRecViewAdapter.ViewHolder>{
 
     public ArrayList<Workout> workouts = new ArrayList<>();
+
+    private EditText helloWorld;
 
     @NonNull
     @Override
@@ -40,6 +44,7 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
             @Override
             public void onClick(View view) {
                 // pop up window here
+                holder.createNewRateDialog();
             }
         });
 
@@ -78,6 +83,9 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
 
         private Context context;
 
+        private AlertDialog.Builder dialogBuilder;
+        private AlertDialog dialog;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -88,6 +96,19 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
             rate = itemView.findViewById(R.id.rate);
 
             context = itemView.getContext();
+
+        }
+
+        public void createNewRateDialog(){
+
+            dialogBuilder = new AlertDialog.Builder(itemView.getContext());
+            final View ratePopupView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.ratepopup,null);
+
+            helloWorld = (EditText) ratePopupView.findViewById(R.id.helloWorld);
+
+            dialogBuilder.setView(ratePopupView);
+            dialog = dialogBuilder.create();
+            dialog.show();
 
         }
     }
