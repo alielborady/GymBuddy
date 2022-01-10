@@ -44,8 +44,24 @@ public class AllWorkouts extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
 //        addWorkout = FirebaseDatabase.getInstance().getReference("workouts");
-//        Workout workout = new Workout("Leg Press", "Hypertrophy", "4 sets 8-10 reps");
+//        Workout workout = new Workout("Barbell Bicep Curls", "Hypertrophy", "3 sets 10-12 reps");
+//        workout.setLink("https://www.youtube.com/watch?v=dDI8ClxRS04");
+//        Workout workout2 = new Workout("Hammer Curls", "Hypertrophy", "3 sets 10-12 reps");
+//        workout2.setLink("https://www.youtube.com/watch?v=0IAM2YtviQY");
+//        Workout workout3 = new Workout("Preacher Curls", "Hypertrophy", "3 sets 10-15 reps");
+//        workout3.setLink("https://www.youtube.com/watch?v=RgN216Cumtw");
+//        Workout workout4 = new Workout("Overhead Triceps Extensions", "Hypertrophy", "3 sets 10-12 reps");
+//        workout4.setLink("https://www.youtube.com/watch?v=ntBjdnckWgo");
+//        Workout workout5 = new Workout("Skull Crushers", "Hypertrophy", "4 sets 8-10 reps");
+//        workout5.setLink("https://www.youtube.com/watch?v=4re6CJ0XNF8");
+//        Workout workout6 = new Workout("Triceps Push-downs", "Hypertrophy", "3 sets 10-15 reps");
+//        workout6.setLink("https://www.youtube.com/watch?v=HIKzvHkibWc");
 //        addWorkout.push().setValue(workout);
+//        addWorkout.push().setValue(workout2);
+//        addWorkout.push().setValue(workout3);
+//        addWorkout.push().setValue(workout4);
+//        addWorkout.push().setValue(workout5);
+//        addWorkout.push().setValue(workout6);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("workouts");
 

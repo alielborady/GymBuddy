@@ -21,7 +21,7 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
 
     public ArrayList<Workout> workouts = new ArrayList<>();
 
-    private EditText helloWorld;
+    private TextView helloWorld;
 
     @NonNull
     @Override
@@ -104,7 +104,7 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
             dialogBuilder = new AlertDialog.Builder(itemView.getContext());
             final View ratePopupView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.ratepopup,null);
 
-            helloWorld = (EditText) ratePopupView.findViewById(R.id.helloWorld);
+            helloWorld = (TextView) ratePopupView.findViewById(R.id.helloWorld);
 
             dialogBuilder.setView(ratePopupView);
             dialog = dialogBuilder.create();

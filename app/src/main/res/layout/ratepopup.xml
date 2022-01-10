@@ -10,9 +10,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
-    <EditText
+    <TextView
         android:layout_width="wrap_content"
         android:id="@+id/helloWorld"
+        android:textColor="@color/white"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -27,6 +28,7 @@
         android:layout_height="wrap_content"
         android:isIndicator="false"
         android:id="@+id/rating"
+        android:progressTint="#FFD700"
         />
 
     <Button
