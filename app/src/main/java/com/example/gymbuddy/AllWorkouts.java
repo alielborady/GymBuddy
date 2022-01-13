@@ -44,8 +44,8 @@ public class AllWorkouts extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
 //        addWorkout = FirebaseDatabase.getInstance().getReference("workouts");
-//        Workout workout = new Workout("Barbell Bicep Curls", "Hypertrophy", "3 sets 10-12 reps");
-//        workout.setLink("https://www.youtube.com/watch?v=dDI8ClxRS04");
+//        Workout workout = new Workout("Stair Climber", "Cardio", "4 sets of 2 mins or 12 calories");
+//        workout.setLink("https://www.youtube.com/watch?v=ST-5lD69XqU");
 //        Workout workout2 = new Workout("Hammer Curls", "Hypertrophy", "3 sets 10-12 reps");
 //        workout2.setLink("https://www.youtube.com/watch?v=0IAM2YtviQY");
 //        Workout workout3 = new Workout("Preacher Curls", "Hypertrophy", "3 sets 10-15 reps");
@@ -66,6 +66,7 @@ public class AllWorkouts extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference("workouts");
 
         ArrayList<Workout> workouts = new ArrayList<>();
+        ArrayList<String> workoutsKeys = new ArrayList<>();
 
         AllWorkoutsRecViewAdapter adapter = new AllWorkoutsRecViewAdapter();
 
@@ -74,9 +75,11 @@ public class AllWorkouts extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds : snapshot.getChildren()){
                     workouts.add(ds.getValue(Workout.class));
+                    workoutsKeys.add(ds.getKey());
                 }
 
                 adapter.setWorkouts(workouts);
+                adapter.setKeys(workoutsKeys);
                 progressBar.setVisibility(View.GONE);
             }
 

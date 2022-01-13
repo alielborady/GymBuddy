@@ -6,7 +6,7 @@ public class Workout {
     String name;
     String reps;
     String link;
-    int rating;
+    double rating;
     int numOfRaters;
 
     public Workout() {
@@ -55,11 +55,11 @@ public class Workout {
         this.name = name;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 
@@ -71,7 +71,7 @@ public class Workout {
         this.numOfRaters = numOfRaters;
     }
 
-    public int getNewRating(int rating){
+    public double getNewRating(double rating){
         rating = ((this.rating * this.numOfRaters) + rating) / (this.numOfRaters + 1);
         return rating;
     }

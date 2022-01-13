@@ -8,20 +8,34 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsRecViewAdapter.ViewHolder>{
 
     public ArrayList<Workout> workouts = new ArrayList<>();
+    private ArrayList<String> workoutsKeys = new ArrayList<>();
 
     private TextView helloWorld;
+    private RatingBar ratingBar;
+    private Button rateButton;
+
+    DatabaseReference databaseReference;
 
     @NonNull
     @Override
@@ -35,6 +49,7 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         Workout workout = workouts.get(position);
+        String workoutKey = workoutsKeys.get(position);
 
         holder.workoutName.setText(workout.getName());
         holder.category.setText(workout.getCategory());
@@ -44,7 +59,7 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
             @Override
             public void onClick(View view) {
                 // pop up window here
-                holder.createNewRateDialog();
+                holder.createNewRateDialog(workoutKey,workout);
             }
         });
 
@@ -60,6 +75,13 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
             }
         });
 
+//        holder.rateButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(holder.context, "Yes you are right", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
 
     }
 
@@ -71,6 +93,10 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
     public void setWorkouts(ArrayList<Workout> workouts){
         this.workouts = workouts;
         notifyDataSetChanged();
+    }
+
+    public void setKeys(ArrayList<String> keys){
+        this.workoutsKeys = keys;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -99,16 +125,49 @@ public class AllWorkoutsRecViewAdapter extends RecyclerView.Adapter<AllWorkoutsR
 
         }
 
-        public void createNewRateDialog(){
+        public void createNewRateDialog(String workoutKey,Workout workout){
 
             dialogBuilder = new AlertDialog.Builder(itemView.getContext());
             final View ratePopupView = LayoutInflater.from(itemView.getContext()).inflate(R.layout.ratepopup,null);
 
             helloWorld = (TextView) ratePopupView.findViewById(R.id.helloWorld);
+            ratingBar = (RatingBar) ratePopupView.findViewById(R.id.rating);
+
+            rateButton = (Button) ratePopupView.findViewById(R.id.rateNow);
 
             dialogBuilder.setView(ratePopupView);
             dialog = dialogBuilder.create();
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
             dialog.show();
+
+            rateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    double newRating = ratingBar.getRating();
+
+                    databaseReference = FirebaseDatabase.getInstance().getReference("workouts").child(workoutKey);
+
+                    HashMap workoutMap = new HashMap();
+                    workoutMap.put("rating", workout.getNewRating(newRating));
+                    workoutMap.put("numOfRaters", workout.getNumOfRaters()+1);
+
+                    databaseReference.updateChildren(workoutMap).addOnCompleteListener(new OnCompleteListener() {
+                        @Override
+                        public void onComplete(@NonNull Task task) {
+                            if (task.isSuccessful()){
+                                Toast.makeText(itemView.getContext(), "Thanks for rating!", Toast.LENGTH_LONG).show();
+                                dialog.cancel();
+                                Intent intent = new Intent(itemView.getContext(),AllWorkouts.class);
+                                itemView.getContext().startActivity(intent);
+                            } else {
+                                Toast.makeText(itemView.getContext(), "Please try again!", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+
+                }
+            });
 
         }
     }
