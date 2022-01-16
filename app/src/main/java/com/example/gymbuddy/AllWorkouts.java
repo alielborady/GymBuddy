@@ -30,7 +30,10 @@ public class AllWorkouts extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private DatabaseReference gettingUser;
     private DatabaseReference addWorkout;
+
+    private User currentUser;
 
 
     @Override
@@ -46,24 +49,24 @@ public class AllWorkouts extends AppCompatActivity {
 //        addWorkout = FirebaseDatabase.getInstance().getReference("workouts");
 //        Workout workout = new Workout("Stair Climber", "Cardio", "4 sets of 2 mins or 12 calories");
 //        workout.setLink("https://www.youtube.com/watch?v=ST-5lD69XqU");
-//        Workout workout2 = new Workout("Hammer Curls", "Hypertrophy", "3 sets 10-12 reps");
-//        workout2.setLink("https://www.youtube.com/watch?v=0IAM2YtviQY");
-//        Workout workout3 = new Workout("Preacher Curls", "Hypertrophy", "3 sets 10-15 reps");
-//        workout3.setLink("https://www.youtube.com/watch?v=RgN216Cumtw");
-//        Workout workout4 = new Workout("Overhead Triceps Extensions", "Hypertrophy", "3 sets 10-12 reps");
-//        workout4.setLink("https://www.youtube.com/watch?v=ntBjdnckWgo");
-//        Workout workout5 = new Workout("Skull Crushers", "Hypertrophy", "4 sets 8-10 reps");
-//        workout5.setLink("https://www.youtube.com/watch?v=4re6CJ0XNF8");
-//        Workout workout6 = new Workout("Triceps Push-downs", "Hypertrophy", "3 sets 10-15 reps");
-//        workout6.setLink("https://www.youtube.com/watch?v=HIKzvHkibWc");
 //        addWorkout.push().setValue(workout);
-//        addWorkout.push().setValue(workout2);
-//        addWorkout.push().setValue(workout3);
-//        addWorkout.push().setValue(workout4);
-//        addWorkout.push().setValue(workout5);
-//        addWorkout.push().setValue(workout6);
 
         mDatabase = FirebaseDatabase.getInstance().getReference("workouts");
+
+        mAuth = FirebaseAuth.getInstance();
+        String userId = mAuth.getCurrentUser().getUid();
+        gettingUser = FirebaseDatabase.getInstance().getReference("users").child(userId);
+        gettingUser.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                currentUser = snapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         ArrayList<Workout> workouts = new ArrayList<>();
         ArrayList<String> workoutsKeys = new ArrayList<>();
@@ -78,8 +81,49 @@ public class AllWorkouts extends AppCompatActivity {
                     workoutsKeys.add(ds.getKey());
                 }
 
-                adapter.setWorkouts(workouts);
-                adapter.setKeys(workoutsKeys);
+                ArrayList<Workout> orderedList = new ArrayList<>();
+                ArrayList<String> orderedKeysList = new ArrayList<>();
+
+                // sort based on rating
+                for (double i = 5; i >= -1; i -= 0.1) {
+                    for (int j = 0; j < workouts.size(); j++) {
+                        if (workouts.get(j).getRating() >= i && workouts.get(j).getRating() < (i + 0.1)){
+                            orderedList.add(workouts.get(j));
+                            orderedKeysList.add(workoutsKeys.get(j));
+                        }
+                    }
+                }
+
+                ArrayList<Workout> filteredList = new ArrayList<>();
+                ArrayList<String> filteredKeysList = new ArrayList<>();
+                //sort based on weight goal
+                if (!(currentUser.getCurrentWeight() == 0 && currentUser.getGoalWeight() == 0)){
+                    if (currentUser.getGoalWeight() - currentUser.getCurrentWeight() > 0){
+                        for (int i = 0; i < orderedList.size(); i++) {
+                            // only add hypertrophy category
+                            if (orderedList.get(i).getCategory().equalsIgnoreCase("Hypertrophy")){
+                                filteredList.add(orderedList.get(i));
+                                filteredKeysList.add(orderedKeysList.get(i));
+                            }
+                        }
+                    } else if (currentUser.getGoalWeight() - currentUser.getCurrentWeight() < 0){
+                        // only add cardio category
+                        for (int i = 0; i < orderedList.size(); i++) {
+                            // only add hypertrophy category
+                            if (orderedList.get(i).getCategory().equalsIgnoreCase("Cardio")){
+                                filteredList.add(orderedList.get(i));
+                                filteredKeysList.add(orderedKeysList.get(i));
+                            }
+                        }
+                    } else {
+                        filteredList = orderedList;
+                        filteredKeysList = orderedKeysList;
+                    }
+                }
+
+
+                adapter.setWorkouts(filteredList);
+                adapter.setKeys(filteredKeysList);
                 progressBar.setVisibility(View.GONE);
             }
 

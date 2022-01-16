@@ -203,7 +203,7 @@ public class FypActivity extends AppCompatActivity implements View.OnClickListen
                         } else {
                             amPm = " AM";
                         }
-                        String update = String.format("%02d:%02d", i, i1) + amPm;
+                        String update = String.format("%02d:%02d", i, i1);
                         userTime.setText("Time:  " + update);
                         updateWorkoutTime(update);
                     }

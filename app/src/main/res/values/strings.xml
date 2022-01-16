@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GymBuddy</string>
+    <string name="app_name">Gym Buddy</string>
 
     <string-array name="challenges">
         <item>Squats</item>

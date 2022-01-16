@@ -19,7 +19,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -52,6 +55,12 @@ public class AllChallengesRecViewAdapter extends RecyclerView.Adapter<AllChallen
         holder.progressIndicator.setMin(0);
         holder.progressIndicator.setMax(max);
         holder.progressIndicator.setProgress(challenge.getCurrentProgress());
+
+        Date date = challenge.getEndDate();
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, MMM dd  hh:mm");
+        String strDate = dateFormat.format(date);
+
+        holder.endDate.setText("This challenge ends on:   " + strDate);
 
         mAuth = FirebaseAuth.getInstance();
         String userId = mAuth.getCurrentUser().getUid();
@@ -114,9 +123,7 @@ public class AllChallengesRecViewAdapter extends RecyclerView.Adapter<AllChallen
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView challengeName;
-        private TextView participants;
-        private TextView level;
+        private TextView level, endDate, participants, challengeName;
         private LinearProgressIndicator progressIndicator;
 
         private Context context;
@@ -128,6 +135,7 @@ public class AllChallengesRecViewAdapter extends RecyclerView.Adapter<AllChallen
             participants = itemView.findViewById(R.id.participants);
             level = itemView.findViewById(R.id.level);
             progressIndicator = itemView.findViewById(R.id.progressIndicator);
+            endDate = itemView.findViewById(R.id.endDate);
 
             context = itemView.getContext();
 

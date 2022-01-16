@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class HomeActivityChallengeRecViewAdapter extends  RecyclerView.Adapter<HomeActivityChallengeRecViewAdapter.ViewHolder>{
@@ -45,6 +48,12 @@ public class HomeActivityChallengeRecViewAdapter extends  RecyclerView.Adapter<H
         holder.progressIndicator.setMax(max);
         holder.progressIndicator.setProgress(challenge.getCurrentProgress());
 
+        Date date = challenge.getEndDate();
+        DateFormat dateFormat = new SimpleDateFormat("EEEE, MMM dd  hh:mm");
+        String strDate = dateFormat.format(date);
+
+        holder.endDate.setText("This challenge ends on:   " + strDate);
+
         String challengeKey = challengesKeys.get(position);
 
         Intent intent = new Intent(holder.context, ChallengePage.class);
@@ -76,9 +85,7 @@ public class HomeActivityChallengeRecViewAdapter extends  RecyclerView.Adapter<H
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView challengeName;
-        private TextView participants;
-        private TextView level;
+        private TextView level, endDate, participants, challengeName;
         private LinearProgressIndicator progressIndicator;
 
         private Context context;
@@ -90,6 +97,7 @@ public class HomeActivityChallengeRecViewAdapter extends  RecyclerView.Adapter<H
             participants = itemView.findViewById(R.id.participants);
             level = itemView.findViewById(R.id.level);
             progressIndicator = itemView.findViewById(R.id.progressIndicator);
+            endDate = itemView.findViewById(R.id.endDate);
 
             context = itemView.getContext();
 

@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -28,10 +29,13 @@ public class AllBuddys extends AppCompatActivity {
     private static final String TAG = "MyActivity";
 
     private DatabaseReference mDatabase;
+    private DatabaseReference gettingUser;
 
     private FirebaseAuth mAuth;
 
     private ProgressBar progressBar;
+
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +71,7 @@ public class AllBuddys extends AppCompatActivity {
                     }
                 }
 
-                ArrayList orderedList = new ArrayList();
+                ArrayList<User> orderedList = new ArrayList();
 
                 for (User user : users) {
                     if (user.getGymId().equalsIgnoreCase("unavailable") && user.getWorkoutTime() == null) {
@@ -88,7 +92,82 @@ public class AllBuddys extends AppCompatActivity {
                     }
                 }
 
-                adapter.setUsers(orderedList);
+                String userId = mAuth.getCurrentUser().getUid();
+
+                gettingUser = FirebaseDatabase.getInstance().getReference("users").child(userId);
+                gettingUser.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList<User> orderedList2 = new ArrayList();
+                        currentUser = snapshot.getValue(User.class);
+
+                        if (!(currentUser.getWorkoutTime() == null)){
+                            LocalTime userWorkoutTime = LocalTime.parse(currentUser.getWorkoutTime()) ;
+                            int userWorkoutHour = userWorkoutTime.getHour();
+//                  int userWorkoutMin = userWorkoutTime.getMinute();
+
+                            for (User user : orderedList){
+                                if (!(user.getWorkoutTime() == null)){
+                                    LocalTime buddyWorkoutTime = LocalTime.parse(user.getWorkoutTime()) ;
+                                    int buddyWorkoutHour = buddyWorkoutTime.getHour();
+//                          int buddyWorkoutMin = buddyWorkoutTime.getMinute();
+
+                                    if ((Math.abs(userWorkoutHour - buddyWorkoutHour) <= 2) || (Math.abs(userWorkoutHour - buddyWorkoutHour) >= 22)){
+                                        orderedList2.add(user);
+                                    }
+                                }
+                            }
+
+                            for (User user : orderedList){
+                                if (!(user.getWorkoutTime() == null)){
+                                    LocalTime buddyWorkoutTime = LocalTime.parse(user.getWorkoutTime()) ;
+                                    int buddyWorkoutHour = buddyWorkoutTime.getHour();
+//                          int buddyWorkoutMin = buddyWorkoutTime.getMinute();
+
+                                    if ((Math.abs(userWorkoutHour - buddyWorkoutHour) > 2) && (Math.abs(userWorkoutHour - buddyWorkoutHour) <= 4)){
+                                        orderedList2.add(user);
+                                    }
+                                }
+                            }
+
+                            for (User user : orderedList){
+                                if (!(user.getWorkoutTime() == null)){
+                                    LocalTime buddyWorkoutTime = LocalTime.parse(user.getWorkoutTime()) ;
+                                    int buddyWorkoutHour = buddyWorkoutTime.getHour();
+//                          int buddyWorkoutMin = buddyWorkoutTime.getMinute();
+
+                                    if ((Math.abs(userWorkoutHour - buddyWorkoutHour) > 4) && (Math.abs(userWorkoutHour - buddyWorkoutHour) <= 6)){
+                                        orderedList2.add(user);
+                                    }
+                                }
+                            }
+                            for (User user : orderedList){
+                                if (!(user.getWorkoutTime() == null)){
+                                    LocalTime buddyWorkoutTime = LocalTime.parse(user.getWorkoutTime()) ;
+                                    int buddyWorkoutHour = buddyWorkoutTime.getHour();
+//                          int buddyWorkoutMin = buddyWorkoutTime.getMinute();
+
+                                    if ((Math.abs(userWorkoutHour - buddyWorkoutHour) > 6)){
+                                        orderedList2.add(user);
+                                    }
+                                }
+                            }
+
+                            for (User user : orderedList){
+                                if ((user.getWorkoutTime() == null)){
+                                    orderedList2.add(user);
+                                }
+                            }
+
+                        }
+                        adapter.setUsers(orderedList2);
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
                 progressBar.setVisibility(View.GONE);
 

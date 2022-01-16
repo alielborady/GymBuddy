@@ -16,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="16dp"
+            android:paddingTop="16dp"
+            >
 
             <!-- Title, secondary and supporting text -->
             <TextView
@@ -43,6 +45,16 @@
                 android:id="@+id/level"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textColor="?android:attr/textColorSecondary"
+                android:paddingBottom="25dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This chellenge ends on"
+                android:textSize="9dp"
+                android:id="@+id/endDate"
+                android:paddingBottom="5dp"
                 />
 
         </LinearLayout>
