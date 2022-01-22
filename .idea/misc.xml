@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/layout/challenge_item.xml" value="0.36666666666666664" />
         <entry key="app/src/main/res/layout/chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_chat.xml" value="0.11639492753623189" />
+        <entry key="app/src/main/res/layout/finish_challenge_progress_popup.xml" value="0.3423913043478261" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.11639492753623189" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.11684782608695653" />
         <entry key="app/src/main/res/layout/gym_item.xml" value="0.3451086956521739" />

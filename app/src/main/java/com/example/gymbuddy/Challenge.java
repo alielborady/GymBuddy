@@ -19,6 +19,15 @@ public class Challenge implements Serializable {
     public int currentProgress;
     public int doneDaily;
     public ArrayList<String> participants;
+    public HashMap<String,Integer> participantsProgress;
+
+    public HashMap<String, Integer> getParticipantsProgress() {
+        return participantsProgress;
+    }
+
+    public void setParticipantsProgress(HashMap<String, Integer> participantsProgress) {
+        this.participantsProgress = participantsProgress;
+    }
 
     public Challenge(){
 
@@ -48,6 +57,7 @@ public class Challenge implements Serializable {
         endDate = calendar.getTime();
 
         participants = new ArrayList<>();
+        participantsProgress = new HashMap<>();
 
     }
 
@@ -101,6 +111,7 @@ public class Challenge implements Serializable {
 
     public void addParticipant(String id){
         participants.add(id);
+        participantsProgress.put(id,0);
     }
 
     public int getDoneDaily() {

@@ -73,7 +73,8 @@ public class AllChallengesRecViewAdapter extends RecyclerView.Adapter<AllChallen
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                challenge.getParticipants().add(userId);
+//                challenge.getParticipants().add(userId);
+                challenge.addParticipant(userId);
 
                 addParticipant(challengeKey, challenge, view, holder);
 
@@ -87,6 +88,7 @@ public class AllChallengesRecViewAdapter extends RecyclerView.Adapter<AllChallen
 
         HashMap challengeMap = new HashMap();
         challengeMap.put("participants", challenge.getParticipants());
+        challengeMap.put("participantsProgress", challenge.getParticipantsProgress());
 
         mDatabase = FirebaseDatabase.getInstance()
                 .getReference("challenges")
