@@ -51,7 +51,7 @@ public class AllChallengesRecViewAdapter extends RecyclerView.Adapter<AllChallen
 
         holder.challengeName.setText(challenge.getName());
         holder.level.setText(challenge.getLevel());
-        holder.participants.setText(String.valueOf(challenge.getParticipants().size()));
+        holder.participants.setText("No. of participants: "+String.valueOf(challenge.getParticipants().size()));
         holder.progressIndicator.setMin(0);
         holder.progressIndicator.setMax(max);
         holder.progressIndicator.setProgress(challenge.getCurrentProgress());
