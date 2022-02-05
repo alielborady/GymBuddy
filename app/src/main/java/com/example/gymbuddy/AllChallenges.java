@@ -69,8 +69,13 @@ public class AllChallenges extends AppCompatActivity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                LocalDateTime now = LocalDateTime.now();
+                Date nowDate = Date.from(now.atZone(ZoneId.systemDefault()).toInstant());
+
                 for (DataSnapshot ds : snapshot.getChildren()){
-                    if ((!ds.getValue(Challenge.class).getParticipants().contains(userId)) && (ds.getValue(Challenge.class).getParticipants().size() < 10)){
+                    if ((!ds.getValue(Challenge.class).getParticipants().contains(userId))
+                            && (ds.getValue(Challenge.class).getParticipants().size() < 10)
+                            && (ds.getValue(Challenge.class).getEndDate().compareTo(nowDate)>0)){
                         challenges.add(ds.getValue(Challenge.class));
                         String key = ds.getKey();
                         challengesKeys.add(key);
